@@ -91,8 +91,22 @@ trait ComponentTrait
         $ret = '';
         $composer_file = self::get_composer_file();
         if ($composer_file) {
-            $json = json_decode(file_get_contents($composer_file));
-            $ret = $json->homepage ?? $ret;
+            $ret = self::get_composer_json_object($composer_file)->homepage ?? $ret;
+        }
+        return $ret;
+    }
+
+    /**
+     * Returns the package name as found in the composer.json file.
+     * @return string
+     * @throws \ReflectionException
+     */
+    public static function get_composer_package_name() : string
+    {
+        $ret = '';
+        $composer_file = self::get_composer_file();
+        if ($composer_file) {
+            $ret = self::get_composer_json_object($composer_file)->name ?? $ret;
         }
         return $ret;
     }
@@ -128,20 +142,14 @@ trait ComponentTrait
         return $ret;
     }
 
-    /**
-     * Returns the package name as found in the composer.json file.
-     * @return string
-     * @throws \ReflectionException
-     */
-    public static function get_composer_package_name() : string
-    {
-        $ret = '';
-        $composer_file = self::get_composer_file();
-        if ($composer_file) {
-            $json = json_decode(file_get_contents($composer_file));
-            $ret = $json->name ?? $ret;
-        }
 
-        return $ret;
+    private static function get_composer_json_object(string $composer_file) : object
+    {
+        $json = json_decode(file_get_contents($composer_file));
+        if ($json === NULL) {
+            //print sprintf('The %s contains invalid json: %s.', $composer_file, json_last_error_msg() );
+            throw new \RuntimeException(sprintf('The %s contains invalid json: %s.', $composer_file, json_last_error_msg() ) );
+        }
+        return $json;
     }
 }
