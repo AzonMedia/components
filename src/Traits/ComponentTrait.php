@@ -24,7 +24,7 @@ trait ComponentTrait
      */
     public static function get_name() : string
     {
-        return self::COMPONENT_NAME;
+        return static::COMPONENT_NAME;
     }
 
     /**
@@ -33,7 +33,7 @@ trait ComponentTrait
      */
     public static function get_url() : string
     {
-        return self::COMPONENT_URL;
+        return static::COMPONENT_URL;
     }
 
     /**
@@ -42,7 +42,7 @@ trait ComponentTrait
      */
     public static function get_namespace() : string
     {
-        return self::COMPONENT_NAMESPACE;
+        return static::COMPONENT_NAMESPACE;
     }
 
     /**
@@ -50,7 +50,7 @@ trait ComponentTrait
      */
     public static function get_version() : string
     {
-        return self::COMPONENT_VERSION;
+        return static::COMPONENT_VERSION;
     }
 
     /**
@@ -58,7 +58,7 @@ trait ComponentTrait
      */
     public static function get_vendor_name() : string
     {
-        return self::VENDOR_NAME;
+        return static::VENDOR_NAME;
     }
 
     /**
@@ -66,7 +66,7 @@ trait ComponentTrait
      */
     public static function get_vendor_url() : string
     {
-        return self::VENDOR_URL;
+        return static::VENDOR_URL;
     }
 
     /**
@@ -76,7 +76,25 @@ trait ComponentTrait
      */
     public static function get_error_reference_url() : string
     {
-        return self::ERROR_REFERENCE_URL;
+        return static::ERROR_REFERENCE_URL;
+    }
+
+    ///////////////////////////////////////////////////////////
+    //composer.json related methods follow
+    ///////////////////////////////////////////////////////////
+
+    /**
+     * @return string
+     */
+    public static function get_source_url() : string
+    {
+        $ret = '';
+        $composer_file = self::get_composer_file();
+        if ($composer_file) {
+            $json = json_decode(file_get_contents($composer_file));
+            $ret = $json->homepage ?? $ret;
+        }
+        return $ret;
     }
 
     /**
