@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Azonmedia\Components\Traits;
 
+use Guzaba2\Base\Exceptions\RunTimeException;
+
 /**
  * Trait ComponentTrait
  * @package Azonmedia\Components\Traits
@@ -24,6 +26,10 @@ trait ComponentTrait
      */
     public static function get_name() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::COMPONENT_NAME')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_NAME constant.'));
+        }
         return static::COMPONENT_NAME;
     }
 
@@ -33,6 +39,10 @@ trait ComponentTrait
      */
     public static function get_url() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::COMPONENT_URL')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_URL constant.'));
+        }
         return static::COMPONENT_URL;
     }
 
@@ -42,6 +52,10 @@ trait ComponentTrait
      */
     public static function get_namespace() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::COMPONENT_NAMESPACE')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_NAMESPACE constant.'));
+        }
         return static::COMPONENT_NAMESPACE;
     }
 
@@ -50,6 +64,10 @@ trait ComponentTrait
      */
     public static function get_version() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::COMPONENT_VERSION')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_VERSION constant.'));
+        }
         return static::COMPONENT_VERSION;
     }
 
@@ -58,6 +76,10 @@ trait ComponentTrait
      */
     public static function get_vendor_name() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::VENDOR_NAME')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the VENDOR_NAME constant.'));
+        }
         return static::VENDOR_NAME;
     }
 
@@ -66,6 +88,10 @@ trait ComponentTrait
      */
     public static function get_vendor_url() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::VENDOR_URL')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the VENDOR_URL constant.'));
+        }
         return static::VENDOR_URL;
     }
 
@@ -76,6 +102,10 @@ trait ComponentTrait
      */
     public static function get_error_reference_url() : string
     {
+        $called_class = get_called_class();
+        if (!defined($called_class.'::ERROR_REFERENCE_URL')) {
+            throw new \RuntimeException(sprintf('The class/component %s does not define the ERROR_REFERENCE_URL constant.'));
+        }
         return static::ERROR_REFERENCE_URL;
     }
 
