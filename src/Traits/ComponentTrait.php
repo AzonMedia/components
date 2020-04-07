@@ -28,7 +28,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::COMPONENT_NAME')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_NAME constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the COMPONENT_NAME constant.', $called_class));
         }
         return static::COMPONENT_NAME;
     }
@@ -41,7 +41,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::COMPONENT_URL')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_URL constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the COMPONENT_URL constant.', $called_class));
         }
         return static::COMPONENT_URL;
     }
@@ -54,7 +54,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::COMPONENT_NAMESPACE')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_NAMESPACE constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the COMPONENT_NAMESPACE constant.', $called_class));
         }
         return static::COMPONENT_NAMESPACE;
     }
@@ -66,7 +66,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::COMPONENT_VERSION')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the COMPONENT_VERSION constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the COMPONENT_VERSION constant.', $called_class));
         }
         return static::COMPONENT_VERSION;
     }
@@ -78,7 +78,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::VENDOR_NAME')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the VENDOR_NAME constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the VENDOR_NAME constant.', $called_class));
         }
         return static::VENDOR_NAME;
     }
@@ -90,7 +90,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::VENDOR_URL')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the VENDOR_URL constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the VENDOR_URL constant.', $called_class));
         }
         return static::VENDOR_URL;
     }
@@ -104,7 +104,7 @@ trait ComponentTrait
     {
         $called_class = get_called_class();
         if (!defined($called_class.'::ERROR_REFERENCE_URL')) {
-            throw new \RuntimeException(sprintf('The class/component %s does not define the ERROR_REFERENCE_URL constant.'));
+            throw new \RuntimeException(sprintf('The class/component %1s does not define the ERROR_REFERENCE_URL constant.', $called_class));
         }
         return static::ERROR_REFERENCE_URL;
     }
@@ -115,6 +115,7 @@ trait ComponentTrait
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     public static function get_source_url() : string
     {
@@ -178,7 +179,7 @@ trait ComponentTrait
         $json = json_decode(file_get_contents($composer_file));
         if ($json === NULL) {
             //print sprintf('The %s contains invalid json: %s.', $composer_file, json_last_error_msg() );
-            throw new \RuntimeException(sprintf('The %s contains invalid json: %s.', $composer_file, json_last_error_msg() ) );
+            throw new \RuntimeException(sprintf('The %1s contains invalid json: %2s.', $composer_file, json_last_error_msg() ) );
         }
         return $json;
     }
